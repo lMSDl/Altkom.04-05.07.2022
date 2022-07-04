@@ -83,7 +83,7 @@ namespace Services
         }
         private void EditPerson(Person person)
         {
-            person.FirstName = GetData("Imię:");
+            person.FirstName = GetData(Resources.Properties.Resources.FirstName);
             person.LastName = GetData("Nazwisko:");
 
             var success = false;

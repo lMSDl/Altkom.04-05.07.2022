@@ -45,17 +45,17 @@ do
             exit = true;
             break;
         default:
-            Console.WriteLine("Błędna opcja");
+            Console.WriteLine(Resources.Properties.Resources.BadCommand);
             break;
     }
 } while (!exit);
 
 void ShowMenu()
 {
-    Console.WriteLine("1. Dodaj");
-    Console.WriteLine("2. Modyfikuj");
-    Console.WriteLine("3. Usuń");
-    Console.WriteLine("4. Koniec");
+    Console.WriteLine($"1. {Resources.Properties.Resources.Add}");
+    Console.WriteLine($"2. {Resources.Properties.Resources.Edit}");
+    Console.WriteLine($"3. {Resources.Properties.Resources.Delete}");
+    Console.WriteLine($"4. {Resources.Properties.Resources.End}");
 }
 
 int AskForId()
