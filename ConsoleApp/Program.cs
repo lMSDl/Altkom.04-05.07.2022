@@ -1,4 +1,5 @@
 ﻿using ConsoleApp.Delegates;
+using ConsoleApp.LambdaExpression;
 using ConsoleApp.Models;
 using Newtonsoft.Json;
 
@@ -11,6 +12,8 @@ test.OddNumberDelegate = SthMethod;
 
 test.Test();
 
+
+new LinqExamples().Test();
 
 static int SthMethod()
 {
