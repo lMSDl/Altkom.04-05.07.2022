@@ -18,40 +18,67 @@ do
     ShowMenu();
     var input = PeopleService.GetData("Wybierz co chcesz zrobić:");
 
-    switch (input)
+    //if(Enum.TryParse(typeof(MenuOptions), input, true, out var selectedOption))
+    if (!Enum.TryParse<MenuOptions>(input, true, out var selectedOption))
     {
-        case "1":
-        case "dodaj":
-        case "add":
+        continue;
+    }
+
+    switch (selectedOption)
+    {
+        case MenuOptions.Add:
             service.Create();
             break;
-        case "2":
+        case MenuOptions.Edit:
             {
             var id = AskForId();
             service.Update(id);
             }
             break;
-        case "3":
+        case MenuOptions.Delete:
             {
             var id = AskForId();
             service.Delete(id);
             }
             break;
-        case "4":
+        case MenuOptions.End:
             exit = true;
             break;
+        //case "5":
+            //service.MethodForPeople();
+            //break;
         default:
             Console.WriteLine(Resources.Properties.Resources.BadCommand);
             break;
     }
 } while (!exit);
 
+
+
+
+
+
 void ShowMenu()
 {
-    Console.WriteLine($"1. {Resources.Properties.Resources.Add}");
+    //var role = Roles.Delete | Roles.Read;
+
+    //if(role.HasFlag(Roles.Write))
+    //{
+
+    //}
+
+    var menuOptions = Enum.GetValues<MenuOptions>();
+
+    foreach (var item in menuOptions)
+    {
+        Console.WriteLine($"{(int)item}. {Resources.Properties.Resources.ResourceManager.GetString(item.ToString())}");
+    }
+
+    /*Console.WriteLine($"1. {Resources.Properties.Resources.Add}");
     Console.WriteLine($"2. {Resources.Properties.Resources.Edit}");
     Console.WriteLine($"3. {Resources.Properties.Resources.Delete}");
     Console.WriteLine($"4. {Resources.Properties.Resources.End}");
+    Console.WriteLine($"5. DoSth");*/
 }
 
 int AskForId()

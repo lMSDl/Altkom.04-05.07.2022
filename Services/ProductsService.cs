@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class ProductsService : BaseService<Product>, IService<Product>
+    public class ProductsService : BaseService<Product>, IProductService
     {
         protected override Product CreateInstace()
         {
