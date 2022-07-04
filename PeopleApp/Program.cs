@@ -1,7 +1,7 @@
 ﻿using Services;
 using Models;
 
-IPeopleService peopleService = new PeopleService();
+IService<Product> service = new ProductsService();
 
 bool exit = false;
 
@@ -9,14 +9,10 @@ do
 {
     Console.Clear();
 
-    var people = peopleService.GetPeople();
-    foreach (var person in people)
+    var entities = service.Get();
+    foreach (var entity in entities)
     {
-        //var line = person.Id + "\t" + person.LastName + " " + person.FirstName + person.Age;
-        //var line = string.Format("{0} {2} {1} {3}", person.Id, person.FirstName, person.LastName, person.Age);
-
-        var line = $"{person.Id,-3}{person.LastName,-15}{person.FirstName,-10}{person.Age,-3}";
-        Console.WriteLine(line);
+        Console.WriteLine(entity);
     }
 
     ShowMenu();
@@ -27,18 +23,18 @@ do
         case "1":
         case "dodaj":
         case "add":
-            peopleService.Create();
+            service.Create();
             break;
         case "2":
             {
             var id = AskForId();
-            peopleService.Update(id);
+            service.Update(id);
             }
             break;
         case "3":
             {
             var id = AskForId();
-            peopleService.Delete(id);
+            service.Delete(id);
             }
             break;
         case "4":

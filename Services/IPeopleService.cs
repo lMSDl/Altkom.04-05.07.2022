@@ -2,13 +2,10 @@
 
 namespace Services
 {
-    public interface IPeopleService
+    //interfejs bazowy określa metody dla typu generycznego,
+    //a w interfejsach dziedziczących możemy zamieścić metody specyficzne dla konkretnego typu
+    public interface IPeopleService : IService<Person>
     {
-        //brak kodyfikatora dostępu = public
-        IEnumerable<Person> GetPeople();
-        Person GetPerson(int id);
-        void Create();
-        void Update(int id);
-        void Delete(int id);
+        void MethodForPeople();
     }
 }
