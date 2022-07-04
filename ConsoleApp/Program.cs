@@ -16,3 +16,11 @@ Console.WriteLine(product.Modified);
 Console.WriteLine(product.Info);
 
 Console.WriteLine(JsonConvert.SerializeObject(product));
+
+Console.ReadLine();
+
+var pizza = new Pizza { Ham = true, Cheese = true };
+pizza = new Pizza(true, false, true) { Onion = true, PublicField = "a" };
+
+//Console.WriteLine(  pizza.Ham );
+Console.WriteLine(  pizza.PublicField );
