@@ -3,7 +3,7 @@ using ConsoleApp.Models;
 using Newtonsoft.Json;
 
 
-var test = new EventsExample();
+var test = new BuildInDelegatesExample();
 
 //Event nie pozwala na wyczyszczenie listy subskrypcji
 //test.OddNumberEvent = SthMethod;
