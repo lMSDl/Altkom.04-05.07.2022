@@ -22,14 +22,14 @@ namespace Resources.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    public class Resources___Copy {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Resources___Copy() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Resources.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.Properties.Resources - Copy", typeof(Resources___Copy).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,7 @@ namespace Resources.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add.
+        ///   Looks up a localized string similar to Dodaj.
         /// </summary>
         public static string Add {
             get {
@@ -70,7 +70,7 @@ namespace Resources.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Age:.
+        ///   Looks up a localized string similar to Wiek:.
         /// </summary>
         public static string Age {
             get {
@@ -79,7 +79,7 @@ namespace Resources.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid option.
+        ///   Looks up a localized string similar to Błędna opcja.
         /// </summary>
         public static string BadCommand {
             get {
@@ -88,7 +88,7 @@ namespace Resources.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
+        ///   Looks up a localized string similar to Usuń.
         /// </summary>
         public static string Delete {
             get {
@@ -97,7 +97,7 @@ namespace Resources.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit.
+        ///   Looks up a localized string similar to Edytuj.
         /// </summary>
         public static string Edit {
             get {
@@ -106,7 +106,7 @@ namespace Resources.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to End.
+        ///   Looks up a localized string similar to Koniec.
         /// </summary>
         public static string End {
             get {
@@ -115,7 +115,7 @@ namespace Resources.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name:.
+        ///   Looks up a localized string similar to Imię:.
         /// </summary>
         public static string FirstName {
             get {
@@ -124,7 +124,7 @@ namespace Resources.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Last name:.
+        ///   Looks up a localized string similar to Nazwisko:.
         /// </summary>
         public static string LastName {
             get {

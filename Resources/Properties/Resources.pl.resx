@@ -118,27 +118,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Add" xml:space="preserve">
-    <value>Add</value>
+    <value>Dodaj</value>
   </data>
   <data name="Age" xml:space="preserve">
-    <value>Age:</value>
+    <value>Wiek:</value>
   </data>
   <data name="BadCommand" xml:space="preserve">
-    <value>Invalid option</value>
+    <value>Błędna opcja</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Usuń</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>Edytuj</value>
   </data>
   <data name="End" xml:space="preserve">
-    <value>End</value>
+    <value>Koniec</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>Name:</value>
+    <value>Imię:</value>
   </data>
   <data name="LastName" xml:space="preserve">
-    <value>Last name:</value>
+    <value>Nazwisko:</value>
   </data>
 </root>

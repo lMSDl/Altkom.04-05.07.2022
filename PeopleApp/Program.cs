@@ -1,5 +1,10 @@
 ﻿using Services;
 using Models;
+using System.Globalization;
+
+//CultureInfo ci = new CultureInfo("en-US", false);
+//Thread.CurrentThread.CurrentCulture = ci;
+//Thread.CurrentThread.CurrentUICulture = ci;
 
 IService<Product> service = new ProductsService();
 
