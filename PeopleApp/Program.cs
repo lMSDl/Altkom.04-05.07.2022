@@ -1,6 +1,10 @@
 ﻿using Services;
 using Models;
 using System.Text.Json;
+using System.Xml;
+using System.Xml.Serialization;
+using System.Text;
+using System.Xml.Linq;
 
 //CultureInfo ci = new CultureInfo("en-US", false);
 //Thread.CurrentThread.CurrentCulture = ci;
@@ -12,7 +16,7 @@ ICache cache = new FileDataProvider(file);
 
 //await cache.WriteAsync("Hello!");
 
-IAsyncService<Product> service = new ProductsService(await LoadFromJsonAsync());
+IAsyncService<Product> service = new ProductsService(await LoadFromXmlAsync());
 
 await MainLoopAsync(service);
 
@@ -111,7 +115,8 @@ async Task MainLoopAsync(IAsyncService<Product> service)
                 }
                 break;
             case MenuOptions.End:
-                SaveToJsonAsync(entities);
+                SaveToXmlAsync(entities);
+                //SaveToJsonAsync(entities);
                 exit = true;
                 break;
             //case "5":
@@ -147,6 +152,41 @@ async Task<IEnumerable<Product>> LoadFromJsonAsync()
         var names = jsonDocument.RootElement.EnumerateArray().Select(x => x.GetProperty(nameof(Product.Name))).Select(x => x.GetString()).ToList();
 
         var entities = JsonSerializer.Deserialize<IEnumerable<Product>>(json);
+        return entities;
+    }
+    catch
+    {
+        return new List<Product>();
+    }
+}
+
+async Task SaveToXmlAsync(IEnumerable<Product> entities)
+{
+
+    var serialize = new XmlSerializer(entities.GetType());
+    using var memoryStream = new MemoryStream();
+    serialize.Serialize(memoryStream, entities);
+    var xml = Encoding.Default.GetString(memoryStream.ToArray());
+    await cache.WriteAsync(xml);
+}
+async Task<IEnumerable<Product>> LoadFromXmlAsync()
+{
+    try
+    {
+        var xml = await cache.ReadAsync();
+
+
+        //XmlDocument - System.Xml - brak wsparcia dla LINQ
+        //XDocument - System.Linq.Xml - wsparcie dla LINQ
+
+        var xDocument = XDocument.Parse(xml);
+        var names = xDocument.Root.Elements().SelectMany(x => x.Elements().Where(xx => xx.Name == nameof(Product.Name))).Select(x => x.Value).ToList();
+
+        var xmlSerializer = new XmlSerializer(typeof(List<Product>));
+        var memoryStream = new MemoryStream();
+        xDocument.Save(memoryStream);
+        memoryStream.Position = 0;
+        var entities = (IEnumerable<Product>)xmlSerializer.Deserialize(memoryStream);
         return entities;
     }
     catch
