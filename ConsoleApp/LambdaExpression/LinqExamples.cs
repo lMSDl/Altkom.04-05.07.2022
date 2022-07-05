@@ -42,6 +42,17 @@ namespace ConsoleApp.LambdaExpression
             var queryResult8 = products.Where(x => x.Price > 500).FirstOrDefault();
             var queryResult9 = products.Where(x => x.Price > 100).Single();
             var queryResult10 = products.Where(x => x.Price > 500).SingleOrDefault();
+
+
+            var queryResult11 = products.Select(x => x.Price).Where(x => x < 100).Max();
+
+
+            //1. Wybrać parzyste liczby, które są większe od 6 lub mniejsze od 4. Ustawić je malejąco.
+            //2. Wybrać listę długości wyrazów i ustawić je w kolejności alfabetycznej (tych wyrazów)
+            //3. Podać średnią cenę produktów
+            //4. Jakie produkty kupimy za 2 zł?
+            //5. Jeden produkt, który kończy się na "y"
+            //6. Wybrać listę stringów po przekształceniu produktów w ciąg znaków: "<nazwa>: <cena>zł"
         }
 
     }
