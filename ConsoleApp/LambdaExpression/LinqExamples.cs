@@ -1,6 +1,7 @@
 ﻿using ConsoleApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,11 +49,19 @@ namespace ConsoleApp.LambdaExpression
 
 
             //1. Wybrać parzyste liczby, które są większe od 6 lub mniejsze od 4. Ustawić je malejąco.
+            var queryResult12 = numbers.Where(x => x % 2 == 0).Where(x => x > 6 || x < 4).OrderByDescending(x => x).ToList();
             //2. Wybrać listę długości wyrazów i ustawić je w kolejności alfabetycznej (tych wyrazów)
+            var queryResult13 = strings.OrderBy(x => x).Select(x => x.Length).ToList();
             //3. Podać średnią cenę produktów
+            //var queryResult14 = products.Select(x => x.Price).Average();
+            var queryResult14 = products.Average(x => x.Price);
             //4. Jakie produkty kupimy za 2 zł?
+            var querResult15 = products.Where(x => x.Price <= 2).ToList();
             //5. Jeden produkt, który kończy się na "y"
+            var querResult16 = products.Where(x => x.Name.EndsWith("y", true, CultureInfo.InvariantCulture)).FirstOrDefault();
             //6. Wybrać listę stringów po przekształceniu produktów w ciąg znaków: "<nazwa>: <cena>zł"
+            var querResult17 = products.Select(x => $"{x.Name}: {x.Price}zł").ToList();
+
         }
 
     }
