@@ -48,5 +48,15 @@ namespace Services
             //return Task.CompletedTask;
             */
         }
+
+        public Task WriteAsync(byte[] bytes)
+        {
+            return File.WriteAllBytesAsync(Path, bytes);
+        }
+
+        public Task<byte[]> ReadBytesAsync()
+        {
+            return File.ReadAllBytesAsync(Path);
+        }
     }
 }

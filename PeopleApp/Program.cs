@@ -5,6 +5,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Text;
 using System.Xml.Linq;
+using PeopleApp.Encryption;
 
 //CultureInfo ci = new CultureInfo("en-US", false);
 //Thread.CurrentThread.CurrentCulture = ci;
@@ -167,14 +168,18 @@ async Task SaveToXmlAsync(IEnumerable<Product> entities)
     using var memoryStream = new MemoryStream();
     serialize.Serialize(memoryStream, entities);
     var xml = Encoding.Default.GetString(memoryStream.ToArray());
-    await cache.WriteAsync(xml);
+
+    //await cache.WriteAsync(xml);
+    var data = new AsymmetricEncryptor().Encrypt(xml, "CN=localhost");
+    await cache.WriteAsync(data);
 }
 async Task<IEnumerable<Product>> LoadFromXmlAsync()
 {
     try
     {
-        var xml = await cache.ReadAsync();
-
+        //var xml = await cache.ReadAsync();
+        var data = await cache.ReadBytesAsync();
+        var xml = Encoding.Default.GetString(new AsymmetricEncryptor().Decrypt(data, "CN=localhost"));
 
         //XmlDocument - System.Xml - brak wsparcia dla LINQ
         //XDocument - System.Linq.Xml - wsparcie dla LINQ

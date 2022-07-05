@@ -10,5 +10,7 @@ namespace Services
     {
         Task WriteAsync(string @string);
         Task<string> ReadAsync();
+        Task WriteAsync(byte[] bytes);
+        Task<byte[]> ReadBytesAsync();
     }
 }
