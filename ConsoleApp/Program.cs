@@ -4,16 +4,30 @@ using ConsoleApp.Models;
 using Newtonsoft.Json;
 
 
-var test = new BuildInDelegatesExample();
-
-//Event nie pozwala na wyczyszczenie listy subskrypcji
-//test.OddNumberEvent = SthMethod;
-test.OddNumberDelegate = SthMethod;
-
-test.Test();
+    Nullable<int> a = null;
+    int? b = 5;
+    int c;
 
 
-new LinqExamples().Test();
+if(a - b == 0 || a - b == null)
+{
+    c = (a + b) ?? 0; //?? - jeśli wynik po lewej jest null to użyj wartości po prawej stronie
+}
+else
+{
+    var result = a - b;
+    //if (result != null)
+    //if (result.HasValue)
+    //    c = result.Value;
+    //else
+    //    c = 0;
+    c = result.HasValue ? result.Value : 0;
+}
+
+// <warunek> ? <true> : <false>
+c = (a - b == 0 || a - b == null) ? ((a + b) ?? 0) : ((a - b).HasValue ? (a - b).Value : 0);
+c = (((a - b) == 0 || a - b == null) ? (a + b) : (a - b)) ?? 0;
+
 
 static int SthMethod()
 {
@@ -48,4 +62,18 @@ static void Method()
 
     //Console.WriteLine(  pizza.Ham );
     Console.WriteLine(pizza.PublicField);
+}
+
+static void Delegates()
+{
+    var test = new BuildInDelegatesExample();
+
+    //Event nie pozwala na wyczyszczenie listy subskrypcji
+    //test.OddNumberEvent = SthMethod;
+    test.OddNumberDelegate = SthMethod;
+
+    test.Test();
+
+
+    new LinqExamples().Test();
 }
