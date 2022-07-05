@@ -14,14 +14,15 @@ namespace Services
             person.FirstName = GetData(Resources.Properties.Resources.FirstName);
             person.LastName = GetData("Nazwisko:");
 
-            var success = false;
             int age = 0;
-            while (!success)
-            {
-                var ageString = GetData("Wiek:");
-                //metoda zwraca 2 rezultaty. Pierwszy poprzez return, a drugi przez parametr wyjściowy (out)
-                success = int.TryParse(ageString, out age);
-            }
+            //var success = false;
+            //while (!success)
+            //{
+            //    var ageString = GetData("Wiek:");
+            //    //metoda zwraca 2 rezultaty. Pierwszy poprzez return, a drugi przez parametr wyjściowy (out)
+            //    success = int.TryParse(ageString, out age);
+            //}
+            GetValidData("Wiek:", x => int.TryParse(x, out age) && age > 18);
             person.Age = age;
         }
 

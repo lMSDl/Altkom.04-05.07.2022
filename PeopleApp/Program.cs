@@ -13,8 +13,8 @@ bool exit = false;
 do
 {
     Console.Clear();
-
     var entities = service.Get();
+    //entities.ToList().ForEach(x => Console.WriteLine(x));
     foreach (var entity in entities)
     {
         Console.WriteLine(entity);
@@ -74,10 +74,14 @@ void ShowMenu()
 
     var menuOptions = Enum.GetValues<MenuOptions>();
 
-    foreach (var item in menuOptions)
+    foreach(var line in menuOptions.Select(item  => $"{(int)item}. {Resources.Properties.Resources.ResourceManager.GetString(item.ToString())}"))
     {
-        Console.WriteLine($"{(int)item}. {Resources.Properties.Resources.ResourceManager.GetString(item.ToString())}");
+        Console.WriteLine(line);
     }
+    //foreach (var item in menuOptions)
+    //{
+    //    Console.WriteLine($"{(int)item}. {Resources.Properties.Resources.ResourceManager.GetString(item.ToString())}");
+    //}
 
     /*Console.WriteLine($"1. {Resources.Properties.Resources.Add}");
     Console.WriteLine($"2. {Resources.Properties.Resources.Edit}");

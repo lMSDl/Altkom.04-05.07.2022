@@ -18,13 +18,17 @@ namespace Services
         {
             entity.Name = GetData("Nazwa:");
 
-            var success = false;
+            //var success = false;
+            //float price = 0;
+            //while (!success)
+            //{
+            //    var ageString = GetData("Cena:");
+            //    success = float.TryParse(ageString, out price);
+            //}
+            //entity.Price = price;
+
             float price = 0;
-            while (!success)
-            {
-                var ageString = GetData("Cena:");
-                success = float.TryParse(ageString, out price);
-            }
+            GetValidData("Cena:", input => float.TryParse(input, out price) && price > 0);
             entity.Price = price;
         }
     }
