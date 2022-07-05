@@ -6,57 +6,30 @@ using System.Globalization;
 //Thread.CurrentThread.CurrentCulture = ci;
 //Thread.CurrentThread.CurrentUICulture = ci;
 
-IService<Product> service = new ProductsService();
+var folder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+var file = Path.Combine(folder, "myFile.txt");
+ICache cache = new FileDataProvider(file);
 
-bool exit = false;
+await cache.WriteAsync("Hello!");
 
-do
-{
-    Console.Clear();
-    var entities = service.Get();
-    //entities.ToList().ForEach(x => Console.WriteLine(x));
-    foreach (var entity in entities)
-    {
-        Console.WriteLine(entity);
-    }
 
-    ShowMenu();
-    var input = PeopleService.GetData("Wybierz co chcesz zrobić:");
+IAsyncService<Product> service = new ProductsService();
 
-    //if(Enum.TryParse(typeof(MenuOptions), input, true, out var selectedOption))
-    if (!Enum.TryParse<MenuOptions>(input, true, out var selectedOption))
-    {
-        continue;
-    }
+await MainLoopAsync(service);
 
-    switch (selectedOption)
-    {
-        case MenuOptions.Add:
-            service.Create();
-            break;
-        case MenuOptions.Edit:
-            {
-            var id = AskForId();
-            service.Update(id);
-            }
-            break;
-        case MenuOptions.Delete:
-            {
-            var id = AskForId();
-            service.Delete(id);
-            }
-            break;
-        case MenuOptions.End:
-            exit = true;
-            break;
-        //case "5":
-            //service.MethodForPeople();
-            //break;
-        default:
-            Console.WriteLine(Resources.Properties.Resources.BadCommand);
-            break;
-    }
-} while (!exit);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -74,7 +47,7 @@ void ShowMenu()
 
     var menuOptions = Enum.GetValues<MenuOptions>();
 
-    foreach(var line in menuOptions.Select(item  => $"{(int)item}. {Resources.Properties.Resources.ResourceManager.GetString(item.ToString())}"))
+    foreach (var line in menuOptions.Select(item => $"{(int)item}. {Resources.Properties.Resources.ResourceManager.GetString(item.ToString())}"))
     {
         Console.WriteLine(line);
     }
@@ -110,4 +83,58 @@ int AskForId()
         Console.WriteLine(ex.Message);
         return 0;
     }
+}
+
+async Task MainLoopAsync(IAsyncService<Product> service)
+{
+    bool exit = false;
+
+    do
+    {
+        Console.Clear();
+        var entities = await service.GetAsync();
+        //entities.ToList().ForEach(x => Console.WriteLine(x));
+        foreach (var entity in entities)
+        {
+            Console.WriteLine(entity);
+        }
+
+        ShowMenu();
+        var input = PeopleService.GetData("Wybierz co chcesz zrobić:");
+
+        //if(Enum.TryParse(typeof(MenuOptions), input, true, out var selectedOption))
+        if (!Enum.TryParse<MenuOptions>(input, true, out var selectedOption))
+        {
+            continue;
+        }
+
+        switch (selectedOption)
+        {
+            case MenuOptions.Add:
+                Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
+                await service.CreateAsync();
+                break;
+            case MenuOptions.Edit:
+                {
+                    var id = AskForId();
+                    await service.UpdateAsync(id);
+                }
+                break;
+            case MenuOptions.Delete:
+                {
+                    var id = AskForId();
+                    await service.DeleteAsync(id);
+                }
+                break;
+            case MenuOptions.End:
+                exit = true;
+                break;
+            //case "5":
+            //service.MethodForPeople();
+            //break;
+            default:
+                Console.WriteLine(Resources.Properties.Resources.BadCommand);
+                break;
+        }
+    } while (!exit);
 }

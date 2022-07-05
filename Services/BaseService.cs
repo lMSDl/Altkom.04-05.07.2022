@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public abstract class BaseService<T> : IService<T> where T : Entity //gdzie T dziedziczyć po Entity
+    public abstract class BaseService<T> : IService<T>, IAsyncService<T> where T : Entity //gdzie T dziedziczyć po Entity
     {
         private IList<T> entities;
 
@@ -27,6 +27,11 @@ namespace Services
             entities.Add(entity);
         }
 
+        public Task CreateAsync()
+        {
+            return Task.Run(() => Create());
+        }
+
         protected abstract T CreateInstace();
 
 
@@ -44,10 +49,18 @@ namespace Services
             //    }
             //}
         }
+        public Task DeleteAsync(int id)
+        {
+            return Task.Run(() => Delete(id));
+        }
 
         public IEnumerable<T> Get()
         {
             return entities;
+        }
+        public Task<IEnumerable<T>> GetAsync()
+        {
+            return Task.Run(() => Get());
         }
 
         public T Get(int id)
@@ -61,12 +74,20 @@ namespace Services
 
             //return default;
         }
+        public Task<T> GetAsync(int id)
+        {
+            return Task.Run(() => Get(id));
+        }
 
         public void Update(int id)
         {
             var entity = Get(id);
             if (entity != null)
                 Edit(entity);
+        }
+        public Task UpdateAsync(int id)
+        {
+            return Task.Run(() => UpdateAsync(id));
         }
 
         private int GenerateId()
@@ -100,5 +121,8 @@ namespace Services
             }
         }
         protected abstract void Edit(T entity);
+
+
+
     }
 }
