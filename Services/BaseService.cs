@@ -11,9 +11,12 @@ namespace Services
     {
         private IList<T> entities;
 
-        public BaseService()
+        public BaseService() : this(new List<T>())
         {
-            entities = new List<T>();
+        }
+        public BaseService(IEnumerable<T> input)
+        {
+            entities = input.ToList();
         }
 
 

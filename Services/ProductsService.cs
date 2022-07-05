@@ -9,6 +9,16 @@ namespace Services
 {
     public class ProductsService : BaseService<Product>, IProductService
     {
+        public ProductsService() : base()
+        {
+
+        }
+
+        public ProductsService(IEnumerable<Product> input) : base(input)
+        {
+
+        }
+
         protected override Product CreateInstace()
         {
             return new Product();

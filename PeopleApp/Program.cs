@@ -1,6 +1,6 @@
 ﻿using Services;
 using Models;
-using System.Globalization;
+using System.Text.Json;
 
 //CultureInfo ci = new CultureInfo("en-US", false);
 //Thread.CurrentThread.CurrentCulture = ci;
@@ -10,32 +10,16 @@ var folder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 var file = Path.Combine(folder, "myFile.txt");
 ICache cache = new FileDataProvider(file);
 
-await cache.WriteAsync("Hello!");
+//await cache.WriteAsync("Hello!");
 
-
-IAsyncService<Product> service = new ProductsService();
+IAsyncService<Product> service = new ProductsService(await LoadFromJsonAsync());
 
 await MainLoopAsync(service);
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#region Methods
 void ShowMenu()
 {
     //var role = Roles.Delete | Roles.Read;
@@ -127,6 +111,7 @@ async Task MainLoopAsync(IAsyncService<Product> service)
                 }
                 break;
             case MenuOptions.End:
+                SaveToJsonAsync(entities);
                 exit = true;
                 break;
             //case "5":
@@ -137,4 +122,36 @@ async Task MainLoopAsync(IAsyncService<Product> service)
                 break;
         }
     } while (!exit);
+} 
+
+
+async Task SaveToJsonAsync(IEnumerable<Product> entities)
+{
+    var options = new JsonSerializerOptions();
+    options.WriteIndented = true;
+    options.IgnoreReadOnlyProperties = true;
+    //options.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+    options.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault;
+
+    var json = JsonSerializer.Serialize(entities, options);
+    await cache.WriteAsync(json);
 }
+async Task<IEnumerable<Product>> LoadFromJsonAsync()
+{
+    try
+    {
+        var json = await cache.ReadAsync();
+
+        var jsonDocument = JsonDocument.Parse(json);
+        //Możemy odczytywać dane z jsona bez potrzeby deserializowania całości do postaci obiektu
+        var names = jsonDocument.RootElement.EnumerateArray().Select(x => x.GetProperty(nameof(Product.Name))).Select(x => x.GetString()).ToList();
+
+        var entities = JsonSerializer.Deserialize<IEnumerable<Product>>(json);
+        return entities;
+    }
+    catch
+    {
+        return new List<Product>();
+    }
+}
+#endregion
